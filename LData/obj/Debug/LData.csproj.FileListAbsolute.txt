@@ -1,0 +1,6 @@
+E:\~SteveDev\DailyVetJobTxt\LData\bin\Debug\LData.dll.config
+E:\~SteveDev\DailyVetJobTxt\LData\bin\Debug\LData.dll
+E:\~SteveDev\DailyVetJobTxt\LData\bin\Debug\LData.pdb
+E:\~SteveDev\DailyVetJobTxt\LData\obj\Debug\ResolveAssemblyReference.cache
+E:\~SteveDev\DailyVetJobTxt\LData\obj\Debug\LData.dll
+E:\~SteveDev\DailyVetJobTxt\LData\obj\Debug\LData.pdb

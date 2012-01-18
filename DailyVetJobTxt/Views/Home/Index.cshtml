@@ -1,0 +1,100 @@
+﻿@model DailyVetJobTxt.Models.UserPrefsModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="../../Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#makeCall').live('click', function (evt) {
+
+            var phoneNumber = $('#phoneNumber').val();
+
+            $.ajax({
+                type: "GET",
+                url: "API/SendSMSAccountRequest/",
+                data: { phoneTo: phoneNumber },
+                success: function (data) { onSuccess(data); },
+                error: function (errorData) { onError(errorData); }
+            });
+
+            function onSuccess(data) {
+
+            };
+
+            function onError(errorData) {
+
+            };
+
+        });
+
+        $('#queryForJobs').live('click', function (evt) {
+
+        var phonenumber = $('#userPhoneNumber').text();
+
+            $.ajax({
+                type: "GET",
+                url: "API/LookForJobsForUser/",
+                data: { phoneNumber: phonenumber },
+                success: function (data) { onSuccess(data); },
+                error: function (errorData) { onError(errorData); }
+            });
+
+            function onSuccess(data) {
+
+            };
+
+            function onError(errorData) {
+
+            };
+
+        });
+      
+    });
+
+</script>
+<h2>@ViewBag.Message</h2>
+@if (Request.IsAuthenticated)
+{
+    <span>Enter your zip code and keywords to search for jobs:</span>
+    using (Ajax.BeginForm("SaveUserPrefs", "Home", new AjaxOptions { UpdateTargetId = "saveResult", HttpMethod = "POST" }))
+    {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ZipCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ZipCode)
+            @Html.ValidationMessageFor(model => model.ZipCode)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.KeyWords)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.KeyWords)
+            @Html.ValidationMessageFor(model => model.KeyWords)
+        </div>
+        <em>*Note: Seperate keywords with a comma</em>
+        <p>
+            <input type="submit" value="Save Prefs" /> <span id="saveResult"></span>
+        </p>
+      
+    </fieldset>
+    }
+    
+    <input type="button" id="queryForJobs" value="Query For Jobs" />
+    <div id="userPhoneNumber">@User.Identity.Name</div>  
+}
+else
+{
+    <h3>
+        Sign Up Here!</h3>
+    <span>Enter your phone number where you want texts to goto and we'll send back your
+        Pin.</span><br />
+    <input type="text" id="phoneNumber" />
+    <input type="button" id="register" value="Register" />
+}
